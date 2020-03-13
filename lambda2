@@ -1,0 +1,23 @@
+import json
+
+import boto3
+
+import random
+
+def lambda_handler(event, context):
+    # TODO implement
+    
+    dynamodb= boto3.resource('dynamodb')
+    
+    dynamodb_table = dynamodb.Table('lambdadata')
+
+            
+    dynamo_response =  dynamodb_table.put_item(
+                Item={
+                    'uid': random.randint(0,100),
+                    'username':event['name'],
+                    'emaild':event['email'],
+                    'contact':event['contact']
+                })
+    
+    return dynamo_response
