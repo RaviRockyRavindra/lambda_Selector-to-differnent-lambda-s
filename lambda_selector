@@ -1,0 +1,94 @@
+import json
+import boto3
+
+def lambda_handler(event, context):
+    # TODO implement
+    
+    LAMBDA1="lambda1"
+    
+    LAMBDA2="lambda2"
+    
+    LAMBDA3='lambda3'
+    
+    LAMBDA4='lambda4'
+    
+    # intialize lambda client here
+    lambdainvoke= boto3.client("lambda",region_name="ap-south-1")
+
+    # take the values from api params
+    
+    lambda_selector = event['queryStringParameters']['type']
+    
+    # for practise let us assume 4 lambda functions for different operations      
+    
+    # pull the values from api
+    
+    
+    payloadresponse={}
+    
+    res={}
+    
+    # switch to lambda_selector
+    
+    if(lambda_selector==LAMBDA1):
+            #  trigger the lambda1 function lets assume  GET /lamba1 uid
+            
+            ide = event['queryStringParameters']['id']
+            
+            payloadresponse['id']=ide
+            
+            lambda_invoke = lambdainvoke.invoke(FunctionName = "lambda1", InvocationType = "RequestResponse", Payload = json.dumps(payloadresponse))
+            
+            res=lambda_invoke['Payload'].read()
+            
+            
+    elif(lambda_selector==LAMBDA2):
+            #  trigger the lambda2 function lets assume  POST /lamba2  name , emailid, contact
+            
+            
+            name = event['queryStringParameters']['username']
+    
+            emailid = event['queryStringParameters']['email']
+    
+            contact= event['queryStringParameters']['contact']
+            
+            
+            payloadresponse['name']=name
+            payloadresponse['email']=emailid
+            payloadresponse['contact']=contact
+            
+            lambda2_invoke = lambdainvoke.invoke( FunctionName = "lambda2", InvocationType = "RequestResponse", Payload = json.dumps(payloadresponse) )
+            
+            res = lambda2_invoke['Payload'].read()
+            
+            
+    elif(lambda_selector==LAMBDA3):
+            #  trigger the lambda3 function lets assume for updating UPDATE /lambda3 keyvalue=id name , emailid, contact
+            
+            ide = event['queryStringParameters']['id']
+            
+            name= event['queryStringParameters']['username']
+            
+            payloadresponse['id']=ide
+            
+            payloadresponse['name']=name
+            
+            lambda3_invoke = lambdainvoke.invoke( FunctionName = "lambda3", InvocationType = "RequestResponse", Payload = json.dumps(payloadresponse) )
+            
+            res = lambda3_invoke['Payload'].read()
+            
+    
+    elif(lambda_selector==LAMBDA4):
+         
+            #  trigger the lambda4 function lets assume for deletion DELETE /lambda4 keyvalue=id name , emailid, contact
+            
+            ide = event['queryStringParameters']['id']
+            
+            payloadresponse['id']=ide
+            
+            lambda4_invoke = lambdainvoke.invoke( FunctionName = "lambda4", InvocationType = "RequestResponse", Payload = json.dumps(payloadresponse) )
+            res = lambda4_invoke['Payload'].read()
+            
+            
+    return {'statusCode':200,
+    'body': res}
