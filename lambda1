@@ -1,0 +1,24 @@
+import json
+
+import boto3
+
+import random
+
+
+def lambda_handler(event, context):
+    # TODO implement
+    
+    dynamodb_client = boto3.resource('dynamodb')
+    
+    dynamodb_table = dynamodb_client.Table('lambdadata')
+    
+    response = dynamodb_table.get_item(
+        
+        Key={
+            'uid':int(event['id'])
+            
+        }
+        
+        )
+
+    return response
