@@ -1,7 +1,7 @@
 # @Author Ravindra sai konna
 
 <html>
-<img src="https://rockymore.s3.ap-south-1.amazonaws.com/dynamodb_lambda.jpg ">
+<img src="https://rockymore.s3.ap-south-1.amazonaws.com/dynamodb_lambda.jpg">
 </html>
 
 # boto3 aws sdk for python
