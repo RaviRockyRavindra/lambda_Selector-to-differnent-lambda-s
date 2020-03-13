@@ -1,0 +1,18 @@
+import json
+import boto3
+
+
+def lambda_handler(event, context):
+    # TODO implement
+    
+    dynamo_client=boto3.resource('dynamodb')
+    
+    dynamo_table = dynamo_client.Table('lambdadata')
+    
+    dynamo_response = dynamo_table.delete_item(
+        Key={
+            'uid':int(event['id'])
+        }
+        )
+    
+    return dynamo_response
