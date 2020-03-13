@@ -1,7 +1,7 @@
 # @Author Ravindra sai konna
 
 <html>
-<p> hai </p>
+<img url="https://rockymore.s3.ap-south-1.amazonaws.com/dynamodb_lambda.jpg">
 </html>
 
 # lambda_Selector-to-differnent-lambda-s
